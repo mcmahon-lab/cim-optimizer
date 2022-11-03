@@ -6,7 +6,7 @@ with open(os.path.join(directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='cim-optimizer',
-      version=f'1.0',
+      version=f'1.0.2',
       description='Simulated Implementation of the Coherent Ising Machine',
       author='McMahon Lab',
       author_email='pmcmahon@cornell.edu',
@@ -15,8 +15,7 @@ setup(name='cim-optimizer',
       long_description=long_description,
       long_description_content_type='text/markdown',
       url='https://github.com/mcmahon-lab/cim-optimizer',
-      packages=find_packages('cim_optimizer'),
-      package_dir={'': 'cim_optimizer'},
+      packages=find_packages(),
       classifiers=[
           "Development Status :: 3 - Alpha",
           "Programming Language :: Python :: 3.7",
@@ -29,5 +28,5 @@ setup(name='cim-optimizer',
           'numpy',
           'BOHB_HPO',
           'matplotlib',
-          'torch'],
-      include_package_data=True)
+          'torch']
+)
