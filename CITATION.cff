@@ -1,0 +1,18 @@
+authors:
+  - family-names: Chen
+    given-names: Francis
+  - family-names: Isakov
+    given-names: Brian
+  - family-names: King
+    given-names: Tyler
+  - family-names: Leleu
+    given-names: Timothée
+  - family-names: McMahon
+    given-names: Peter
+  - family-names: Onodera
+    given-names: Tatsuhiro
+cff-version: 1.2.0
+date-released: 2022-10-25
+message: "If you use this software, please cite it using the metadata from this file."
+title: "cim-optimizer: a simulator of the Coherent Ising Machine"
+repository-code: "https://github.com/mcmahon-lab/cim-optimizer"

@@ -1,0 +1,7 @@
+BOHB_HPO==0.5.2
+matplotlib==3.5.2
+numpy==1.21.5
+torch==1.12.1
+# cudatoolkit==11.6 
+# only required if using GPU acceleration
+# review https://pytorch.org/ for more info

@@ -1,0 +1,7 @@
+sphinx_rtd_theme==1.1.0
+nbsphinx
+nbsphinx-link
+docutils==0.16
+numpydoc  # numpy docstring style
+sphinx
+sphinxcontrib-napoleon  # google docstring style
