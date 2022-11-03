@@ -1,4 +1,4 @@
-.. cim-optimizer-local documentation master file, created by
+.. cim-optimizer-local documentation main file, created by
    sphinx-quickstart on Tue Nov  1 17:16:19 2022.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -93,7 +93,7 @@ Requirements
 * Requires Python Version >= 3.7
 * Requires PyTorch Version 1.12.1 to be compiled with CUDA 11.6 (for GPU acceleration). See Pytorch's `installation page <https://pytorch.org/>`_ for more information.
 * Requires `BOHB-HPO Version 0.5.2 <https://pypi.org/project/BOHB-HPO/>`_ 
-* For an exhaustive list of requirements, see the :doc:`requirements.txt<https://github.com/mcmahon-lab/cim-optimizer/blob/master/requirements.txt>` file.
+* For an exhaustive list of requirements, see the :doc:`requirements.txt<https://github.com/mcmahon-lab/cim-optimizer/blob/main/requirements.txt>` file.
 
 Contributors
 ============
@@ -108,7 +108,7 @@ The development of this open-source implementation of CIM algorithm variants was
 How to cite
 ===========
 
-If you use this code in your research, please consider citing it. You can retrieve an APA or BibTeX citation by clicking 'Cite this repository' on the sidebar in GitHub, or you can view the raw citation data in `CITATION.cff <https://github.com/mcmahon-lab/cim-optimizer/blob/master/CITATION.cff>`_.
+If you use this code in your research, please consider citing it. You can retrieve an APA or BibTeX citation by clicking 'Cite this repository' on the sidebar in GitHub, or you can view the raw citation data in `CITATION.cff <https://github.com/mcmahon-lab/cim-optimizer/blob/main/CITATION.cff>`_.
 
 License
 =======
@@ -117,7 +117,7 @@ The code in this repository is released under the following license:
 
 `Creative Commons Attribution 4.0 International <https://creativecommons.org/licenses/by/4.0/>`_
 
-A copy of this license is given in this repository as `license.txt <https://github.com/mcmahon-lab/cim-optimizer/blob/master/license.txt>`_.
+A copy of this license is given in this repository as `license.txt <https://github.com/mcmahon-lab/cim-optimizer/blob/main/license.txt>`_.
 
 
 .. toctree::

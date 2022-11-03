@@ -19,6 +19,7 @@ sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath(os.path.join('..', 'cim_optimizer')))
 sys.path.insert(0, os.path.abspath('/cim_optimizer'))
 sys.path.insert(0, os.path.abspath('../'))
+sys.path.insert(0, os.path.abspath('../..'))
 sys.path.insert(0, os.path.abspath('../cim_optimizer/'))
 
 print(sys.path)

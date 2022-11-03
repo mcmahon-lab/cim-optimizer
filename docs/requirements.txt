@@ -1,7 +1,11 @@
-sphinx_rtd_theme==1.1.0
+sphinx_rtd_theme>=0.3.1
 nbsphinx
 nbsphinx-link
 docutils==0.16
 numpydoc  # numpy docstring style
 sphinx
 sphinxcontrib-napoleon  # google docstring style
+BOHB_HPO==0.5.2
+matplotlib==3.5.2
+numpy==1.21.5
+torch==1.12.1
