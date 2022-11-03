@@ -3,7 +3,7 @@
 [![tests](https://github.com/mcmahon-lab/cim-optimizer/actions/workflows/tests.yml/badge.svg)](https://github.com/mcmahon-lab/cim-optimizer/actions/workflows/tests.yml)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
-This repository contains a reference implementation of a simulator of the Coherent Ising Machine (CIM). For more information, please see the [documentation](https://cim-optimizer.readthedocs.io). 
+This repository contains a reference implementation of a simulator of the Coherent Ising Machine (CIM). For more information, please see the [documentation](https://cim-optimizer.readthedocs.io/en/latest/). 
 
 The CIM was [developed](https://doi.org/10.1038/s42254-022-00440-8) as a photonic machine for heuristically solving Ising-optimization problems. Simulations of the CIM can be thought of as an unconventional, dynamical-systems-based, heuristic algorithm for solving Ising problems, which can compete with more conventional Ising-solving algorithms (such as simulated annealing, parallel tempering, and branch-and-bound).
 
