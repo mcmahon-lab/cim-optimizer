@@ -11,7 +11,7 @@ There are two main intended audiences for this repository:
 1. People who would like to use a state-of-the-art implementation of the CIM algorithm to heuristically solve Ising problems (for example, to benchmark the CIM approach against other heuristic approaches).
 2. People who would like to study the workings of the CIM approach through simulation, and/or would like to have a quantitative model of CIM performance to make predictions about how future CIM hardware implementations will perform.
 
-Most of the code in this repository resides within a Python file `solve_Ising.py`. This repository is written in Python, and all input and result data for users is formatted in NumPy, while the source code uses PyTorch libraries for GPU acceleration. Several demonstration notebooks are provided in the [notebooks](notebooks/) directory, and showcase how to configure and run the solver function.
+Most of the code in this repository resides within a Python file `solve_Ising.py`. This repository is written in Python, and all input and result data for users is formatted in NumPy, while the source code uses PyTorch libraries for GPU acceleration. Several demonstration notebooks are provided in the [notebooks](https://github.com/mcmahon-lab/cim-optimizer/tree/main/notebooks) directory, and showcase how to configure and run the solver function.
 
 The goal of the CIM (and its simulation and variants) is to heuristically optimize the following $N$-variable objective function (the classical $N$-spin Ising Hamiltonian):
 
@@ -46,25 +46,27 @@ from cim_optimizer.solve_Ising import *
 import numpy as np
 N = 20 # number of spins
 J = np.random.randint(-100,100,size=(N,N)) # spin-spin-coupling matrix of a random Ising instance
+J = J + J.T # ensure the matrix J is symmetric
+J = np.fill_diagonal(J, 0) # enure diagonal elements of the coupling matrix J are zero
 h = np.random.randint(-100,100,size=(N)) # external-field vector of a random Ising instance
 solution = Ising(J, h).solve()
 print(solution)
 ```
 
 # Getting Started (The Longer Version)
-- For background on CIMs, metadata, and GPU acceleration check out [Example 1](notebooks/Example%201%20-%20CIM%20Introduction.ipynb).
-- Hyperparameters and hyperparameter tuning (with BOHB) is showcased in [Example 2](notebooks/Example%202%20-%20Hyperparameter%20Setup.ipynb).
-- An example solving the Maritime Inventory Routing Problem, which with the Ising mapping used, includes non-zero external-field terms [Example 3](notebooks/Example%203%20-%20MIRP%20with%20CIM.ipynb).
+- For background on CIMs, metadata, and GPU acceleration check out [Example 1](https://github.com/mcmahon-lab/cim-optimizer/blob/main/notebooks/Example%201%20-%20CIM%20Introduction.ipynb).
+- Hyperparameters and hyperparameter tuning (with BOHB) is showcased in [Example 2](https://github.com/mcmahon-lab/cim-optimizer/blob/main/notebooks/Example%202%20-%20Hyperparameter%20Setup.ipynb).
+- An example solving the Maritime Inventory Routing Problem, which with the Ising mapping used, includes non-zero external-field terms [Example 3](https://github.com/mcmahon-lab/cim-optimizer/blob/main/notebooks/Example%203%20-%20MIRP%20with%20CIM.ipynb).
 
 # Requirements
 - Requires Python Version >= 3.7
 - Requires PyTorch Version 1.12.1 to be compiled with CUDA 11.6 (for GPU acceleration). See Pytorch's [installation page](https://pytorch.org/) for more information.
 - Requires [BOHB-HPO Version 0.5.2](https://pypi.org/project/BOHB-HPO/) 
-- For an exhaustive list of requirements, see the [**requirements.txt**](requirements.txt) file.
+- For an exhaustive list of requirements, see the [**requirements.txt**](https://github.com/mcmahon-lab/cim-optimizer/blob/main/requirements.txt) file.
 
 # Contributors
 
-Francis Chen, Brian Isakov, Tyler King, Timothée Leleu, Peter McMahon, Tatsuhiro Onodera
+Francis Chen, Brian Isakov, Tyler King, Timothée Leleu, Tatsuhiro Onodera, Peter McMahon
 
 # Funding acknowledgements
 
@@ -72,7 +74,7 @@ The development of this open-source implementation of CIM algorithm variants was
 
 # How to cite
 
-If you use this code in your research, please consider citing it. You can retrieve an APA or BibTeX citation by clicking 'Cite this repository' on the sidebar in GitHub, or you can view the raw citation data in [CITATION.cff](CITATION.cff).
+If you use this code in your research, please consider citing it. You can retrieve an APA or BibTeX citation by clicking 'Cite this repository' on the sidebar in GitHub, or you can view the raw citation data in [CITATION.cff](https://github.com/mcmahon-lab/cim-optimizer/blob/main/CITATION.cff).
 
 # License
 
@@ -80,4 +82,4 @@ The code in this repository is released under the following license:
 
 [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)
 
-A copy of this license is given in this repository as [license.txt](license.txt).
+A copy of this license is given in this repository as [license.txt](https://github.com/mcmahon-lab/cim-optimizer/blob/main/license.txt).
