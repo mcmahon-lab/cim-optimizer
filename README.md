@@ -47,7 +47,7 @@ import numpy as np
 N = 20 # number of spins
 J = np.random.randint(-100,100,size=(N,N)) # spin-spin-coupling matrix of a random Ising instance
 J = J + J.T # ensure the matrix J is symmetric
-J = np.fill_diagonal(J, 0) # enure diagonal elements of the coupling matrix J are zero
+np.fill_diagonal(J, 0) # ensure diagonal elements of the coupling matrix J are zero
 h = np.random.randint(-100,100,size=(N)) # external-field vector of a random Ising instance
 solution = Ising(J, h).solve()
 print(solution)
