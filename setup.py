@@ -6,7 +6,7 @@ with open(os.path.join(directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='cim-optimizer',
-      version=f'1.0.2',
+      version=f'1.0.3',
       description='Simulated Implementation of the Coherent Ising Machine',
       author='McMahon Lab',
       author_email='pmcmahon@cornell.edu',
