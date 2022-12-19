@@ -35,7 +35,7 @@ class Test_SK:
         J = - np.load(inst_path_str_SK1 + f"SK1_N={N}_{sk_id-1}.npz")
         loaded_energies = np.load(inst_path_str_SK1 + f"SK1_N={N}_ground_energies.npz")['arr_0']
         ground_state_energy = (loaded_energies)[sk_id-1]
-        test_result = Ising(J).solve(num_runs = 1, num_timesteps_per_run = 10000, target_energy = ground_state_energy, return_spin_trajectories_all_runs=True)
+        test_result = Ising(J).solve(num_runs = 1, num_timesteps_per_run = 10000, target_energy = ground_state_energy, return_spin_trajectories_all_runs=True, hyperparameters_randomtune = False)
 
         solved_energy = test_result.result.lowest_energy
         assert solved_energy <= 0.8*ground_state_energy
@@ -46,7 +46,7 @@ class Test_SK:
         J = - np.load(inst_path_str_SK1 + f"SK1_N={N}_{sk_id-1}.npz")
         loaded_energies = np.load(inst_path_str_SK1 + f"SK1_N={N}_ground_energies.npz")['arr_0']
         ground_state_energy = (loaded_energies)[sk_id-1]
-        test_result = Ising(J).solve(num_runs = 1, num_timesteps_per_run = 10000, target_energy = ground_state_energy, return_spin_trajectories_all_runs=True)
+        test_result = Ising(J).solve(num_runs = 1, num_timesteps_per_run = 10000, target_energy = ground_state_energy, return_spin_trajectories_all_runs=True, hyperparameters_randomtune = False)
 
         solved_energy = test_result.result.lowest_energy
         assert solved_energy <= 0.8*ground_state_energy
@@ -58,7 +58,7 @@ class Test_SK:
         J = - np.load(inst_path_str_SK1 + f"SK1_N={N}_{sk_id-1}.npz")
         loaded_energies = np.load(inst_path_str_SK1 + f"SK1_N={N}_ground_energies.npz")['arr_0']
         ground_state_energy = (loaded_energies)[sk_id-1]
-        test_result = Ising(J).solve(num_runs = 1, num_timesteps_per_run = 10000, target_energy = ground_state_energy, return_spin_trajectories_all_runs=True)
+        test_result = Ising(J).solve(num_runs = 1, num_timesteps_per_run = 10000, target_energy = ground_state_energy, return_spin_trajectories_all_runs=True, hyperparameters_randomtune = False)
 
         solved_energy = test_result.result.lowest_energy
         assert solved_energy <= 0.8*ground_state_energy
@@ -69,7 +69,7 @@ class Test_SK:
         J = - np.load(inst_path_str_SK1 + f"SK1_N={N}_{sk_id-1}.npz")
         solution = Ising(J).solve(num_runs = 1, num_timesteps_per_run = 2500, return_spin_trajectories_all_runs=True,
                                 cac_time_step=0.05, cac_r = 0.2, cac_alpha = 1.0, cac_beta = 3*N/(np.sum(np.abs(J))), cac_gamma = 0.075/N,
-                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1)
+                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1, hyperparameters_randomtune = False)
         
         run_time = solution.result.time
         # expecting at worse 2 minutes to reach a near-ground solution
@@ -83,7 +83,7 @@ class Test_SK:
         ground_state_energy = (loaded_energies)[sk_id-1]
         solution = Ising(J).solve(num_runs = 1, num_timesteps_per_run = 2500, return_spin_trajectories_all_runs=True,
                                 cac_time_step=0.05, cac_r = 0.2, cac_alpha = 1.0, cac_beta = 3*N/(np.sum(np.abs(J))), cac_gamma = 0.075/N,
-                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1)
+                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1, hyperparameters_randomtune = False)
                 # expecting at worse 5 minutes to reach a near-ground solution
         solved_energy = solution.result.lowest_energy
         assert solved_energy <= 0.8*ground_state_energy
@@ -96,7 +96,7 @@ class Test_SK:
         ground_state_energy = (loaded_energies)[sk_id-1]
         solution = Ising(J).solve(num_runs = 1, num_timesteps_per_run = 50000, return_spin_trajectories_all_runs=True,
                                 cac_time_step=0.05, cac_r = 0.2, cac_alpha = 1.0, cac_beta = 3*N/(np.sum(np.abs(J))), cac_gamma = 0.075/N,
-                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1)
+                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1, hyperparameters_randomtune = False)
         
         run_time = solution.result.time
         # expecting at worse 5 minutes to reach a near-ground solution
@@ -110,7 +110,7 @@ class Test_SK:
         J = - np.load(inst_path_str_SK1 + f"SK1_N={N}_{sk_id-1}.npz")
         solution = Ising(J).solve(num_runs = 1, num_timesteps_per_run = 5, return_spin_trajectories_all_runs=True,
                                 cac_time_step=0.05, cac_r = 0.2, cac_alpha = 1.0, cac_beta = 3*N/(np.sum(np.abs(J))), cac_gamma = 0.075/N,
-                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1)
+                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1, hyperparameters_randomtune = False)
         
         run_time = solution.result.time
         # expecting at worse 10 minutes to reach a near-ground solution

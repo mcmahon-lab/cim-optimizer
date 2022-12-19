@@ -213,7 +213,7 @@ class Ising:
         target_energy : int, optional
             Assumed target/ground energy for the solver to reach, used to stop
             before num_runs runs have been completed.
-        num_runs : int, default=100
+        num_runs : int, default=1
             Maximum number of runs to attempt by the CIM, either running the
             set repeated number of repetitions or stopping if the target energy
             is met.
@@ -234,10 +234,12 @@ class Ising:
         custom_pump_schedule, optional
             Option to specify a custom function or array of
             length num_timesteps_per_run to use as a pump schedule.
-        hyperparameters_autotune : bool, default=True
+        hyperparameters_autotune : bool, default=False
             If True then: Based on max_wallclock_time_allowed and num_runs,
             dedicate a reasonable amount of time to finding the best
             hyperparameters to use with the CIM.
+        hyperparameters_randomtune : bool, default=True
+            If True then: Run random hyperparameter search based on num_runs.
         ahc_noext_time_step : float, default=0.05
             Time step for each iteration, based on Eq(X) of citation above.
         ahc_noext_r : float, default=0.2
@@ -337,6 +339,7 @@ class Ising:
         random_number_function = np.random.normal()  # Random Number Generator Function
         # HYPERPARAMETER OPTIMIZATION SCHEME
         hyperparameters_autotune: bool = False
+        hyperparameters_randomtune: bool = True
         # AHC-NO-EXTERNAL-FIELD HYPERPARAMETERS
         ahc_noext_time_step: float = 0.05
         ahc_noext_r: float = 0.2
@@ -430,13 +433,39 @@ class Ising:
                 h = np.zeros(N)
                 print("No External Field Detected")
                 if self.use_CAC == False:  # AHC Case
-                    if self.hyperparameters_autotune == False: # Case in which Hyperband is not called.
+                    if self.hyperparameters_autotune == False and self.hyperparameters_randomtune == False: # Case in which Hyperband is not called.
                         # Runs the solver in z batches in parallel, and concatenates batches into one flattened run_data list.
                         for z in range(num_batches):
                             curr_batch = self.CIM_AHC_GPU()
                             for y in range(self.num_parallel_runs):
                                 run_data[z*self.num_parallel_runs + y] = [curr_batch[0][y,:], curr_batch[1][y,:,:], curr_batch[2], curr_batch[3][y,:], curr_batch[4][y,:,:]]
                             run_counter += self.num_parallel_runs
+                    elif self.hyperparameters_randomtune == True:
+                        best_rand_scaling = 0
+                        best_ahc_noext_eps = 0
+                        best_energy = 0
+                        for _ in range(10):
+                            rand_scaling = np.random.choice(np.array([0.01, 0.1, 1, 10, 100]))
+                            self.ahc_noext_eps = np.random.choice(np.array([0.0333, 0.1, 0.333, 1, 3, 10]))
+                            cached_J = self.problem.J
+                            self.problem.J = rand_scaling * self.problem.J
+                            print("bruh1")
+                            test_batch = self.CIM_AHC_GPU()
+                            print("bruh2")
+                            if np.amin(test_batch[3])/rand_scaling < best_energy:
+                                best_rand_scaling = rand_scaling
+                                best_ahc_noext_eps = self.ahc_noext_eps
+                                best_energy = np.amin(test_batch[3])
+                            self.problem.J = cached_J  # return J matrix back to initial value before looping
+                        print("Best combination of epsilon and scaling constant: epsilon = {}; scaling constant = {}".format(best_ahc_noext_eps, best_rand_scaling))
+                        self.ahc_noext_eps = best_ahc_noext_eps
+                        self.problem.J = rand_scaling * self.problem.J
+                        for z in range(num_batches):
+                            curr_batch = self.CIM_AHC_GPU()
+                            for y in range(self.num_parallel_runs):
+                                run_data[z*self.num_parallel_runs + y] = [curr_batch[0][y,:], curr_batch[1][y,:,:], curr_batch[2], curr_batch[3][y,:], curr_batch[4][y,:,:]]
+                            run_counter += self.num_parallel_runs
+
                     else:
                         tuned_parameters = self.tune_AHC()
                         tuned_parameters.pop('J') # Remove J matrix for OOP call.
@@ -448,8 +477,31 @@ class Ising:
                                 run_data[z*self.num_parallel_runs + y] = [curr_batch[0][y,:], curr_batch[1][y,:,:], curr_batch[2], curr_batch[3][y,:], curr_batch[4][y,:,:]]
                             run_counter += self.num_parallel_runs
                 else:
-                    if self.hyperparameters_autotune == False:
+                    if self.hyperparameters_autotune == False and self.hyperparameters_randomtune == False:
                         # Runs the solver in z batches in parallel, and concatenates batches into one flattened run_data list.
+                        for z in range(num_batches):
+                            curr_batch = self.CIM_CAC_GPU()
+                            for y in range(self.num_parallel_runs):
+                                run_data[z*self.num_parallel_runs + y] = [curr_batch[0][y,:], curr_batch[1][y,:,:], curr_batch[2], curr_batch[3][y,:], curr_batch[4][y,:,:]]
+                            run_counter += self.num_parallel_runs
+                    elif self.hyperparameters_randomtune == True:
+                        best_rand_scaling = 0
+                        best_cac_gamma = 0
+                        best_energy = 0
+                        for _ in range(10):
+                            rand_scaling = np.random.choice(np.array([0.01, 0.1, 1, 10, 100]))
+                            self.cac_gamma = np.random.choice(np.array([1e-5, 1e-4, 1e-3, 1e-2, 1e-1]))
+                            cached_J = self.problem.J
+                            self.problem.J = rand_scaling * self.problem.J
+                            test_batch = self.CIM_CAC_GPU()
+                            if np.amin(test_batch[3])/rand_scaling < best_energy:
+                                best_rand_scaling = rand_scaling
+                                best_cac_gamma = self.cac_gamma
+                                best_energy = np.amin(test_batch[3])
+                            self.problem.J = cached_J # return J matrix back to initial value before looping
+                        print("Best combination of epsilon and scaling constant: gamma = {}; scaling constant = {}".format(best_cac_gamma, best_rand_scaling))
+                        self.cac_gamma = best_cac_gamma
+                        self.problem.J = rand_scaling * self.problem.J
                         for z in range(num_batches):
                             curr_batch = self.CIM_CAC_GPU()
                             for y in range(self.num_parallel_runs):
@@ -467,13 +519,43 @@ class Ising:
                             run_counter += self.num_parallel_runs
             else:  # External-Field Case
                 print("External Field Detected")
-                if self.hyperparameters_autotune == False:
+                if self.hyperparameters_autotune == False and self.hyperparameters_randomtune == False:
                     # Runs the solver in z batches in parallel, and concatenates batches into one flattened run_data list.
                     for z in range(num_batches):
                         curr_batch = self.CIM_ext_f_AHC_GPU()
                         for y in range(self.num_parallel_runs):
                             run_data[z*self.num_parallel_runs + y] = [curr_batch[0][y,:], curr_batch[1][y,:,:], curr_batch[2], curr_batch[3][y,:], curr_batch[4][y,:,:]]
                         run_counter += self.num_parallel_runs
+                elif self.hyperparameters_randomtune == True:
+                        best_rand_scaling = 0
+                        best_ahc_ext_eps = 0
+                        best_energy = 0
+                        for _ in range(15):
+                            rand_scaling = np.random.choice(np.array([0.01, 0.1, 1, 10, 100]))
+                            self.ahc_ext_eps = np.random.choice(np.array([0.1, 0.333, 1, 3, 10]))
+                            self.ahc_ext_lambd = np.random.choice(np.array([1e-4, 1e-3, 1e-2, 1e-1]))
+                            cached_J = self.problem.J
+                            cached_h = self.problem.h
+                            self.problem.J = rand_scaling * self.problem.J
+                            self.problem.h = rand_scaling * self.problem.h
+                            test_batch = self.CIM_ext_f_AHC_GPU()
+                            if np.amin(test_batch[3])/rand_scaling < best_energy:
+                                best_rand_scaling = rand_scaling
+                                best_ahc_ext_eps = self.ahc_ext_eps
+                                best_ahc_ext_lambd = self.ahc_ext_lambd
+                                best_energy = np.amin(test_batch[3])
+                            self.problem.J = cached_J # return J matrix back to initial value before looping
+                            self.problem.h = cached_h
+                        print("Best combination of epsilon, lambda, and scaling constant: epsilon = {}; lambda = {}; scaling constant = {}".format(best_ahc_ext_eps, best_ahc_ext_lambd, best_rand_scaling))
+                        self.ahc_ext_eps = best_ahc_ext_eps
+                        self.ahc_ext_lambd = best_ahc_ext_lambd
+                        self.problem.J = rand_scaling * self.problem.J
+                        self.problem.h = rand_scaling * self.problem.h
+                        for z in range(num_batches):
+                            curr_batch = self.CIM_ext_f_AHC_GPU()
+                            for y in range(self.num_parallel_runs):
+                                run_data[z*self.num_parallel_runs + y] = [curr_batch[0][y,:], curr_batch[1][y,:,:], curr_batch[2], curr_batch[3][y,:], curr_batch[4][y,:,:]]
+                            run_counter += self.num_parallel_runs
                 else: 
                     tuned_parameters = self.tune_AHC_ext_f()
                     tuned_parameters.pop('J') # Remove J matrix for OOP call.

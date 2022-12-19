@@ -3,3 +3,5 @@ cim_optimizer/tests/__pycache__
 cim_optimizer/cim_optimizer.egg-info
 .pytest_cache
 docs/build
+cim_optimizer.egg-info
+dist

@@ -42,7 +42,7 @@ class Test_GSet:
         ground_energy = (e - 4 * f) / 2     # Calculate MAX-CUT ground energy
         solution = Ising(J).solve(num_runs = 1, num_timesteps_per_run = 100000, target_energy =  ground_energy, return_spin_trajectories_all_runs=True,
                                 cac_r = 0.2, cac_alpha = 1.0, cac_beta = 3*N/(np.sum(np.abs(J))), cac_gamma = 0.075/N,
-                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1)
+                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1, hyperparameters_randomtune = False)
         solved_energy = solution.result.lowest_energy
         assert solved_energy <= 0.8*ground_energy
 
@@ -57,7 +57,7 @@ class Test_GSet:
         ground_energy = (e - 4 * f) / 2     # Calculate MAX-CUT ground energy
         solution = Ising(J).solve(num_runs = 1, num_timesteps_per_run = 100000, target_energy = ground_energy, return_spin_trajectories_all_runs=True,
                                 cac_r = 0.2, cac_alpha = 1.0, cac_beta = 3*N/(np.sum(np.abs(J))), cac_gamma = 0.075/N,
-                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1)
+                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1, hyperparameters_randomtune = False)
         solved_energy = solution.result.lowest_energy
         assert solved_energy <= 0.8*ground_energy
 
@@ -72,7 +72,7 @@ class Test_GSet:
         ground_energy = (e - 4 * f) / 2     # Calculate MAX-CUT ground energy
         solution = Ising(J).solve(num_runs = 1, num_timesteps_per_run = 1000, target_energy = ground_energy, return_spin_trajectories_all_runs=True,
                                 cac_r = 0.2, cac_alpha = 1.0, cac_beta = 3*N/(np.sum(np.abs(J))), cac_gamma = 0.075/N,
-                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1)
+                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1, hyperparameters_randomtune = False)
         solved_energy = solution.result.lowest_energy
         assert solved_energy <= 0.8*ground_energy
 
@@ -85,7 +85,7 @@ class Test_GSet:
         ground_energy = (e - 4 * f) / 2     # Calculate MAX-CUT ground energy
         solution = Ising(J).solve(num_runs = 1, num_timesteps_per_run = 5, target_energy =  ground_energy, return_spin_trajectories_all_runs=True,
                                 cac_time_step=0.05, cac_r = 0.2, cac_alpha = 1.0, cac_beta = 3*N/(np.sum(np.abs(J))), cac_gamma = 0.075/N,
-                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1)
+                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1, hyperparameters_randomtune = False)
         run_time = solution.result.time
         # time bound obtained from https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.122.040607
         # expecting at worse 2x worse performance
@@ -100,7 +100,7 @@ class Test_GSet:
         ground_energy = (e - 4 * f) / 2     # Calculate MAX-CUT ground energy
         solution = Ising(J).solve(num_runs = 1, num_timesteps_per_run = 5, target_energy =  ground_energy, return_spin_trajectories_all_runs=True,
                                 cac_time_step=0.05, cac_r = 0.2, cac_alpha = 1.0, cac_beta = 3*N/(np.sum(np.abs(J))), cac_gamma = 0.075/N,
-                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1)
+                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1, hyperparameters_randomtune = False)
         run_time = solution.result.time
         # time bound obtained from https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.122.040607
         # expecting at worse 2x worse performance
@@ -113,7 +113,7 @@ class Test_GSet:
         N = J.shape[0]
         solution = Ising(J).solve(num_runs = 1, num_timesteps_per_run = 5, return_spin_trajectories_all_runs=True,
                                 cac_time_step=0.05, cac_r = 0.2, cac_alpha = 1.0, cac_beta = 3*N/(np.sum(np.abs(J))), cac_gamma = 0.075/N,
-                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1)
+                                cac_delta = 9, cac_tau = 9*N, cac_rho = 1, hyperparameters_randomtune = False)
         run_time = solution.result.time
         # time bound obtained from https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.122.040607
         # expecting at worse 2x worse performance

@@ -37,7 +37,7 @@ class Test_MIRP:
         J = -J # flip sign to compute minima instead of maxima
         ground_state_energy = -2757.50
         time_span = 10000
-        test_result = Ising(J, h).solve(num_runs = 1, num_timesteps_per_run = time_span, target_energy = ground_state_energy)
+        test_result = Ising(J, h).solve(num_runs = 1, num_timesteps_per_run = time_span, target_energy = ground_state_energy, hyperparameters_randomtune = False)
 
         solved_energy = test_result.result.lowest_energy
         assert solved_energy <= ground_state_energy * 0.8
@@ -48,7 +48,7 @@ class Test_MIRP:
         J = -J # flip sign to compute minima instead of maxima
         ground_state_energy = -55872.50
         time_span = 50000
-        test_result = Ising(J, h).solve(num_runs = 4, num_parallel_runs = 2, num_timesteps_per_run = time_span, target_energy = ground_state_energy)
+        test_result = Ising(J, h).solve(num_runs = 4, num_parallel_runs = 2, num_timesteps_per_run = time_span, target_energy = ground_state_energy, hyperparameters_randomtune = False)
         # confirm batching performance
         solved_energy = test_result.result.lowest_energy
         assert solved_energy <= ground_state_energy * 0.8
