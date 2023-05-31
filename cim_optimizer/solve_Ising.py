@@ -449,9 +449,7 @@ class Ising:
                             self.ahc_noext_eps = np.random.choice(np.array([0.0333, 0.1, 0.333, 1, 3, 10]))
                             cached_J = self.problem.J
                             self.problem.J = rand_scaling * self.problem.J
-                            print("bruh1")
                             test_batch = self.CIM_AHC_GPU()
-                            print("bruh2")
                             if np.amin(test_batch[3])/rand_scaling < best_energy:
                                 best_rand_scaling = rand_scaling
                                 best_ahc_noext_eps = self.ahc_noext_eps
