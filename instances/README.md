@@ -6,13 +6,13 @@ Several classes of Ising problem instances are provided with the repo, organized
 Contains dense unweighted MAX-CUT instances, generated from Erdős–Rényi graphs under the G(n, p=0.5) model, based on examples from: 
 > Hamerly, R., Inagaki, T., McMahon, P. L., Venturelli, D., Marandi, A., Onodera, T., Ng, E., Langrock, C., Inaba, K., Honjo, T., Enbutsu, K., Umeki, T., Kasahara, R., Utsunomiya, S., Kako, S., Kawarabayashi, K., Byer, R. L., Fejer, M. M., Mabuchi, H., … Yamamoto, Y. (2019). Experimental investigation of performance differences between coherent Ising machines and a quantum annealer. In Science Advances (Vol. 5, Issue 5). American Association for the Advancement of Science (AAAS). https://doi.org/10.1126/sciadv.aau0823
 
-for MAX-CUT instances with less than 100 spins. These instances (and their solutions) are stored in the .npz format, a compressed file format using gzip compression, readable with Python's numpy module.
+for MAX-CUT instances with <=100 spins. These instances (and their solutions) are stored in the .npz format, a compressed file format using gzip compression, readable with Python's numpy module.
 
 ## `SK_Instances_NPZ`
 Contains dense Sherrington-Kirkpatrick instances with elements $J_{ij} \in \{ -1, 1\}$, generated from Erdős–Rényi graphs under the G(n, p=0.5) model, based on examples from: 
 > Hamerly, R., Inagaki, T., McMahon, P. L., Venturelli, D., Marandi, A., Onodera, T., Ng, E., Langrock, C., Inaba, K., Honjo, T., Enbutsu, K., Umeki, T., Kasahara, R., Utsunomiya, S., Kako, S., Kawarabayashi, K., Byer, R. L., Fejer, M. M., Mabuchi, H., … Yamamoto, Y. (2019). Experimental investigation of performance differences between coherent Ising machines and a quantum annealer. In Science Advances (Vol. 5, Issue 5). American Association for the Advancement of Science (AAAS). https://doi.org/10.1126/sciadv.aau0823
 
-for SK1 instances with less than 100 spins. These instances (and their solutions) are stored in the .npz format, a compressed file format using gzip compression, readable with Python's numpy module.
+for SK1 instances with <=100 spins. These instances (and their solutions) are stored in the .npz format, a compressed file format using gzip compression, readable with Python's numpy module.
 
 ## `Stanford_Gset`
 Stanford Gset results are sourced from Yinyu Ye's [personal website](http://web.stanford.edu/~yyye/yyye/Gset/). These consist of MAX-CUTs, weighted and unweighted, of sizes N=800 and greater. These instances are stored in the .txt format, as delimited plain text files.
