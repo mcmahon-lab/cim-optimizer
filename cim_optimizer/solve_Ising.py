@@ -527,6 +527,7 @@ class Ising:
                 elif self.hyperparameters_randomtune == True:
                         best_rand_scaling = 0
                         best_ahc_ext_eps = 0
+                        best_ahc_ext_lambd = 0
                         best_energy = 0
                         for _ in range(15):
                             rand_scaling = np.random.choice(np.array([0.01, 0.1, 1, 10, 100]))
